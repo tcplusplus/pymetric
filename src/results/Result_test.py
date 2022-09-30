@@ -1,6 +1,6 @@
 
 from typing import Literal
-from .Result import Failure, Result, ResultAssert, Success
+from .Result import Failure, Result, Success
 
 def double_if_pos (value: int) -> Result[int, Literal['negative']]:
     if value >= 0:
@@ -17,9 +17,6 @@ class TestResult:
             pass
         if ret.is_success:
             assert ret.value == 8
-        ret.value       # type: ignore
-        ResultAssert.is_success(ret)
-        assert ret.value == 8
 
     def test_result_failure(self) -> None:
         ret = double_if_pos(value=-4)
@@ -30,4 +27,3 @@ class TestResult:
             pass
         if ret.is_failure:
             assert ret.error_code == 'negative'
-        ret.error_code  # type: ignore
