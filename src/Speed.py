@@ -1,7 +1,7 @@
 from __future__ import annotations
 import enum
 from typing import Union, overload
-from src.operations.addition import Addition
+from src.operations.Addition import Addition
 from .Time import Time, Sec
 from .Distance import Distance, M
 from src import Acceleration

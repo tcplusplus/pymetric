@@ -3,7 +3,7 @@ import enum
 from typing import Union, overload
 from src import Speed, Distance
 
-from .operations.addition import Addition
+from .operations.Addition import Addition
 
 class TimeMetric(enum.IntEnum):
     MSec = 0.001

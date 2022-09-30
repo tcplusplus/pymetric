@@ -1,7 +1,7 @@
 from __future__ import annotations
 import enum
 from typing import Union, overload
-from .operations.addition import Addition
+from .operations.Addition import Addition
 from src import Speed, Time
 
 class AccelerationMetric(enum.IntEnum):
