@@ -1,8 +1,9 @@
+from __future__ import annotations
 import enum
-
-from .operations.addition import Addition
-from .Time import Sec, Time
-from .Distance import Distance, DistanceMetric
+from typing import Union, overload
+from src.operations.addition import Addition
+from .Time import Time, Sec
+from .Distance import Distance, M
 
 class SpeedMetric(enum.IntEnum):
     MpS = 10
@@ -18,5 +19,12 @@ class Speed(Addition):
     def get(self, metric: SpeedMetric) -> float:
         return self._unit * (metric.value / 10.0)
 
-    def __mul__(self, time: Time) -> Distance:
-        return Distance(self._unit * time.get(Sec), DistanceMetric.M)
+    @overload
+    def __mul__(self, factor: float|int) -> 'Speed': ...
+    @overload
+    def __mul__(self, time: Time) -> Distance: ...
+
+    def __mul__(self, factor: Union[float, int, Time]) -> Union['Speed', Distance]:
+        if isinstance(factor, float) or isinstance(factor, int):
+            return Speed(self._unit * factor, MpS)
+        return Distance(self._unit * factor.get(Sec), M)

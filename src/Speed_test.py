@@ -27,3 +27,11 @@ class TestSpeed:
     def test_speed_times_time_is_distance(self) -> None:
         distance = Speed(3, KMpH) * Time(2, Hour)
         assert pytest.approx(distance.get(KM), 0.001)  == 6
+
+    def test_speed_can_be_multiplied(self) -> None:
+        speed = Speed(3, KMpH) * 2.0
+        assert speed.get(KMpH) == 6
+
+    def test_speed_can_be_multiplied_by_int(self) -> None:
+        speed = Speed(3, KMpH) * 2
+        assert speed.get(KMpH) == 6

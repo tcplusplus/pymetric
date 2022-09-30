@@ -1,6 +1,6 @@
 import enum
 from typing import Union, overload
-from .Area import Area, AreaMetric
+from src import Area
 
 class DistanceMetric(enum.IntEnum):
     CM = -2
@@ -47,9 +47,9 @@ class Distance:
     @overload
     def __mul__(self, factor: float) -> 'Distance': ...
     @overload
-    def __mul__(self, factor: 'Distance') -> Area: ...
+    def __mul__(self, factor: 'Distance') -> Area.Area: ...
 
-    def __mul__(self, factor: Union[float, 'Distance']) -> Union['Distance', Area]:
+    def __mul__(self, factor: Union[float, 'Distance']) -> Union['Distance', Area.Area]:
         if isinstance(factor, float):
             return Distance(self.__meters * factor, DistanceMetric.M)
-        return Area(self.__meters * factor.get(DistanceMetric.M), AreaMetric.M2)
+        return Area.Area(self.__meters * factor.get(DistanceMetric.M), Area.M2)

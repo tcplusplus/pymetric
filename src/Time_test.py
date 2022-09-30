@@ -33,8 +33,6 @@ class TestTime:
         time = Time(2, Min) / 2.0
         assert time.get(Min) == 1
 
-    '''
     def test_time_times_speed_is_distance(self) -> None:
         distance = Time(2, Hour) * Speed(3, KMpH)
         assert pytest.approx(distance.get(KM), 0.001)  == 6
-    '''
