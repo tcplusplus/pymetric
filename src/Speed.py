@@ -4,6 +4,7 @@ from typing import Union, overload
 from src.operations.addition import Addition
 from .Time import Time, Sec
 from .Distance import Distance, M
+from src import Acceleration
 
 class SpeedMetric(enum.IntEnum):
     MpS = 10
@@ -28,3 +29,13 @@ class Speed(Addition):
         if isinstance(factor, float) or isinstance(factor, int):
             return Speed(self._unit * factor, MpS)
         return Distance(self._unit * factor.get(Sec), M)
+
+    @overload
+    def __truediv__(self, factor: float|int) -> 'Speed': ...
+    @overload
+    def __truediv__(self, factor: Time) -> Acceleration.Acceleration: ...
+
+    def __truediv__(self, factor: Union[float, int, Time]) -> Union['Speed', Acceleration.Acceleration]:
+        if isinstance(factor, float) or isinstance(factor, int):
+            return Speed(self._unit / factor, MpS)
+        return Acceleration.Acceleration(self._unit / factor.get(Sec), Acceleration.MpS2)

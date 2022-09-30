@@ -1,5 +1,6 @@
 from .Speed import Speed, MpS, KMpH
-from .Time import Time, Hour
+from .Time import Time, Hour, Sec
+from .Acceleration import Acceleration, MpS2
 from .Distance import KM
 import pytest
 
@@ -35,3 +36,11 @@ class TestSpeed:
     def test_speed_can_be_multiplied_by_int(self) -> None:
         speed = Speed(3, KMpH) * 2
         assert speed.get(KMpH) == 6
+
+    def test_speed_can_be_divided(self) -> None:
+        speed = Speed(4, KMpH) / 2
+        assert speed.get(KMpH) == 2
+
+    def test_divide_speed_by_time_gives_acceleration(self) -> None:
+        acc = Speed(4, MpS) / Time(2, Sec)
+        assert acc.get(MpS2) == 2
