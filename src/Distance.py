@@ -17,21 +17,20 @@ KM = DistanceMetric.KM
 
 class Distance(UnitBase):
     def __init__(self, unit: float, metric: DistanceMetric) -> None:
-        self.__meters = unit * metric.value
-        UnitBase.__init__(self, unit=unit, default_metric=M)
+        UnitBase.__init__(self, unit=unit, metric=metric)
 
     def get(self, metric: DistanceMetric) -> float:
-        return self.__meters / metric.value
+        return super().get(metric)
 
     def __str__(self) -> str:
-        return f'{self.__meters:1} m'
+        return f'{self._unit:1} m'
 
     def __add__(self, other: 'Distance') -> 'Distance':
         meters = other.get(DistanceMetric.M)
-        return Distance(meters + self.__meters, DistanceMetric.M)
+        return Distance(meters + self._unit, DistanceMetric.M)
 
     def __neg__(self) -> 'Distance':
-        return Distance(-self.__meters, DistanceMetric.M)
+        return Distance(-self._unit, DistanceMetric.M)
 
     def __sub__(self, other: 'Distance') -> 'Distance':
         return self + (-other)
@@ -39,13 +38,13 @@ class Distance(UnitBase):
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Distance):
             return False
-        return self.__meters == other.__meters
+        return self._unit == other._unit
 
     def __gt__(self, other: 'Distance') -> bool:
-        return self.__meters > other.__meters
+        return self._unit > other._unit
 
     def __ge__(self, other: 'Distance') -> bool:
-        return self.__meters >= other.__meters
+        return self._unit >= other._unit
 
     @overload
     def __mul__(self, factor: float) -> 'Distance': ...
@@ -54,5 +53,5 @@ class Distance(UnitBase):
 
     def __mul__(self, factor: Union[float, 'Distance']) -> Union['Distance', Area.Area]:
         if isinstance(factor, float):
-            return Distance(self.__meters * factor, DistanceMetric.M)
-        return Area.Area(self.__meters * factor.get(DistanceMetric.M), Area.M2)
+            return Distance(self._unit * factor, DistanceMetric.M)
+        return Area.Area(self._unit * factor.get(DistanceMetric.M), Area.M2)
