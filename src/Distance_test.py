@@ -1,4 +1,5 @@
 from src.Area import AreaMetric
+from .Speed import Speed, MpS
 from .Distance import Distance, M, CM, KM
 
 class TestMeters:
@@ -26,6 +27,11 @@ class TestMeters:
         distance = Distance(unit=6.5, metric=M)
         new_distance = distance + Distance(unit=2, metric=KM)
         assert new_distance.get(M) == 2006.5
+
+    def test_compare_cannot_be_between_different_metrics(self) -> None:
+        distance = Distance(unit=3, metric=M)
+        speed = Speed(3, MpS)
+        assert distance != speed
 
     def test_cannot_add_distance_with_number(self) -> None:
         distance = Distance(unit=6.5, metric=M)

@@ -12,8 +12,8 @@ class DefaultMetric(MetricBase):
 
 
 class Multiplications(UnitBase, Generic[M, N]):
-    def __init__(self, unit: float, default_metric: MetricBase, output: Type[N]) -> None:
-        super().__init__(unit, default_metric)
+    def __init__(self, unit: float, metric: MetricBase, output: Type[N]) -> None:
+        super().__init__(unit, metric)
         self.output = output
 
     @overload

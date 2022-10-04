@@ -2,10 +2,11 @@ from __future__ import annotations
 import enum
 from typing import Union, overload
 from src import Speed, Distance
+from src.operations.Unitbase import MetricBase
 
 from .operations.Addition import Addition
 
-class TimeMetric(enum.IntEnum):
+class TimeMetric(MetricBase):
     MSec = 0.001
     Sec = 1
     Min = 60
@@ -18,10 +19,10 @@ Hour = TimeMetric.Hour
 
 class Time(Addition):
     def __init__(self, unit: float, metric: TimeMetric) -> None:
-        Addition.__init__(self, unit * metric.value, default_metric=Sec)
+        Addition.__init__(self, unit, metric=metric)
 
     def get(self, metric: TimeMetric) -> float:
-        return self._unit / metric.value
+        return super().get(metric)
 
     @overload
     def __mul__(self, factor: float) -> 'Time': ...

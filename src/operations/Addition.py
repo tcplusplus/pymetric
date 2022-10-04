@@ -6,8 +6,8 @@ from .Unitbase import MetricBase, UnitBase
 A = TypeVar("A", bound="Addition")
 
 class Addition(UnitBase):
-    def __init__(self, unit: float, default_metric: MetricBase) -> None:
-        super().__init__(unit, default_metric)
+    def __init__(self, unit: float, metric: MetricBase) -> None:
+        super().__init__(unit, metric)
 
     def __add__(self: A, other: A) -> A:
         clone = copy.copy(self)
