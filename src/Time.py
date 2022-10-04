@@ -18,7 +18,7 @@ Hour = TimeMetric.Hour
 
 class Time(Addition):
     def __init__(self, unit: float, metric: TimeMetric) -> None:
-        Addition.__init__(self, unit * metric.value)
+        Addition.__init__(self, unit * metric.value, default_metric=Sec)
 
     def get(self, metric: TimeMetric) -> float:
         return self._unit / metric.value

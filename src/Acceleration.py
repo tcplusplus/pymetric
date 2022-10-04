@@ -11,7 +11,7 @@ MpS2 = AccelerationMetric.MpS2
 
 class Acceleration(Addition):
     def __init__(self, unit: float, metric: AccelerationMetric) -> None:
-        Addition.__init__(self, unit / (metric.value / 1.0))
+        Addition.__init__(self, unit / (metric.value / 1.0), metric.MpS2)
 
     def get(self, metric: AccelerationMetric) -> float:
         return self._unit * (metric.value / 1.0)

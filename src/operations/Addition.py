@@ -1,12 +1,13 @@
 import copy
+import enum
 from typing import TypeVar
-from .Unitbase import UnitBase
+from .Unitbase import MetricBase, UnitBase
 
 A = TypeVar("A", bound="Addition")
 
 class Addition(UnitBase):
-    def __init__(self, unit: float) -> None:
-        super().__init__(unit)
+    def __init__(self, unit: float, default_metric: MetricBase) -> None:
+        super().__init__(unit, default_metric)
 
     def __add__(self: A, other: A) -> A:
         clone = copy.copy(self)

@@ -2,24 +2,26 @@ from __future__ import annotations
 import enum
 from typing import Union, overload
 from src import Area
+from src.operations.Unitbase import UnitBase, MetricBase
 
-class DistanceMetric(enum.IntEnum):
-    CM = -2
-    DM = -1
-    M = 0
-    KM = 3
+class DistanceMetric(MetricBase):
+    CM = 0.01
+    DM = 0.1
+    M = 1
+    KM = 1000
 
 M = DistanceMetric.M
 DM = DistanceMetric.DM
 CM = DistanceMetric.CM
 KM = DistanceMetric.KM
 
-class Distance:
+class Distance(UnitBase):
     def __init__(self, unit: float, metric: DistanceMetric) -> None:
-        self.__meters = unit * (10.0 ** metric.value)
+        self.__meters = unit * metric.value
+        UnitBase.__init__(self, unit=unit, default_metric=M)
 
     def get(self, metric: DistanceMetric) -> float:
-        return self.__meters / (10.0 ** metric.value)
+        return self.__meters / metric.value
 
     def __str__(self) -> str:
         return f'{self.__meters:1} m'
