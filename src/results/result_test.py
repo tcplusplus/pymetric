@@ -1,6 +1,5 @@
-
 from typing import Literal
-from .Result import Failure, Result, Success
+from .result import Failure, Result, Success
 
 def double_if_pos (value: int) -> Result[int, Literal['negative']]:
     if value >= 0:
@@ -8,11 +7,16 @@ def double_if_pos (value: int) -> Result[int, Literal['negative']]:
     return Failure('negative', f'value {value} cannot be passed to double_if_pos')
 
 class TestResult:
+    '''
+    PyTest Result Class
+    '''
     def test_result_success(self) -> None:
         ret = double_if_pos(value=4)
         try:
+            # pylint: disable=no-member, pointless-statement
             ret.value   # type: ignore
             ret.error   # type: ignore
+        # pylint: disable=bare-except
         except:
             pass
         if ret.is_success:
@@ -21,8 +25,10 @@ class TestResult:
     def test_result_failure(self) -> None:
         ret = double_if_pos(value=-4)
         try:
+            # pylint: disable=no-member, pointless-statement
             ret.value   # type: ignore
             ret.error   # type: ignore
+        # pylint: disable=bare-except
         except:
             pass
         if ret.is_failure:
@@ -48,4 +54,3 @@ class TestResult:
         assert new_ret.is_failure
         if new_ret.is_failure:
             assert new_ret.error_code == 'negative'
-

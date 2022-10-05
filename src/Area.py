@@ -1,7 +1,8 @@
 from __future__ import annotations
-from src.operations import Comparison
-from src.operations.Addition import Addition
-from src.operations.Unitbase import MetricBase, UnitBase
+from src.operations.comparison import Comparison
+from src.operations.addition import Addition
+from src.operations.unitbase import MetricBase, UnitBase
+from src.operations.display import Display
 
 class AreaMetric(MetricBase):
     M2 = 1
@@ -15,12 +16,10 @@ CM2 = AreaMetric.CM2
 MM2 = AreaMetric.MM2
 
 
-class Area(Addition, UnitBase):
+class Area(Comparison, Addition, Display, UnitBase):
     def __init__(self, unit: float, metric: AreaMetric) -> None:
-       Addition.__init__(self, unit, metric)
+       Comparison.__init__(self, unit=unit, metric=metric)
+       Display.__init__(self, unit=unit, metric=metric, default_metric='m2')
 
     def get(self, metric: AreaMetric) -> float:
-        return super().get(metric)
-
-    def __str__(self) -> str:
-        return f'{self._unit:1} m2'
+        return UnitBase._get(self, metric)

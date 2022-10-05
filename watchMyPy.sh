@@ -1,1 +1,1 @@
-watch -n 3 mypy src/**/*.py
+watch -n 3 mypy **/*.py

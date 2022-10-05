@@ -1,9 +1,9 @@
 from __future__ import annotations
 from typing import Union, overload
 from src import Area
-from src.operations.Addition import Addition
-from src.operations.Comparison import Comparison
-from src.operations.Unitbase import UnitBase, MetricBase
+from src.operations.addition import Addition
+from src.operations.comparison import Comparison
+from src.operations.unitbase import UnitBase, MetricBase
 
 class DistanceMetric(MetricBase):
     CM = 0.01
@@ -21,7 +21,7 @@ class Distance(Comparison, Addition, UnitBase):
         Comparison.__init__(self, unit=unit, metric=metric)
 
     def get(self, metric: DistanceMetric) -> float:
-        return super().get(metric)
+        return UnitBase._get(self, metric)
 
     def __str__(self) -> str:
         return f'{self._unit:1} m'

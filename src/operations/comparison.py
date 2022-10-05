@@ -1,15 +1,17 @@
-import copy
-import enum
-from typing import Type, TypeVar
-from .Unitbase import MetricBase, UnitBase
+from typing import TypeVar
+from .unitbase import MetricBase, UnitBase
 
 A = TypeVar("A", bound="Comparison")
 
 class Comparison(UnitBase):
+    '''
+    Adds <, >, ==, >= and <= operations to the metric
+    '''
     def __init__(self, unit: float, metric: MetricBase) -> None:
-        super().__init__(unit, metric)
+        UnitBase.__init__(self, unit, metric)
 
     def __eq__(self, other: object) -> bool:
+        # pylint: disable=unidiomatic-typecheck
         if not type(other) == type(self) or not isinstance(other, Comparison):
             return False
         return self._unit == other._unit

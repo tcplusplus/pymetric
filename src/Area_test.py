@@ -16,7 +16,6 @@ class TestArea:
 
     def test_area_to_string(self) -> None:
         area = Area(3.5, M2)
-        print('something')
         assert str(area) == '3.5 m2'
 
     def test_addition_between_areas(self) -> None:

@@ -2,9 +2,9 @@ from __future__ import annotations
 from email.policy import default
 import enum
 from typing import Union, overload
-from src.operations.Addition import Addition
-from src.operations.Multiplications import Multiplications
-from src.operations.Unitbase import MetricBase
+from src.operations.addition import Addition
+from src.operations.multiplications import Multiplications
+from src.operations.unitbase import MetricBase, UnitBase
 from .Time import Time, Sec
 from .Distance import Distance, M
 from src import Acceleration
@@ -16,12 +16,12 @@ class SpeedMetric(MetricBase):
 MpS = SpeedMetric.MpS
 KMpH = SpeedMetric.KMpH
 
-class Speed(Addition, Multiplications[Time, Distance]):
+class Speed(Addition, Multiplications[Time, Distance], UnitBase):
     def __init__(self, unit: float, metric: SpeedMetric) -> None:
         Multiplications.__init__(self, unit, metric=metric, output=Distance)
 
     def get(self, metric: SpeedMetric) -> float:
-        return super().get(metric=metric)
+        return UnitBase._get(self, metric=metric)
 
 
     @overload

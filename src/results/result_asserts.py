@@ -4,12 +4,22 @@ There are open tickets with python for this: https://github.com/python/typing/is
 '''
 from typing import NoReturn, TypeVar, Union, overload
 
-from src.results.Result import Failure, Result, Success
+from src.results.result import Failure, Result, Success
 
 T = TypeVar('T')
 E = TypeVar('E', bound=str)
 
 class ResultAssert:
+    '''
+    Goal is to use this in tests to write only once that a result is of a certain type. MyPy does not work with this yet
+    current example:
+      assert res.is_success
+      if res.is_success:
+        assert res.value == 'something'
+    wanted to go to
+      ResultAssert.is_success(res)
+      assert res.value == 'something'
+    '''
     @overload
     @staticmethod
     def is_success(result: Success[T, E]) -> None: ...

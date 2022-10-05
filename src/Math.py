@@ -2,7 +2,7 @@ import math
 from typing import Literal
 from .Area import MM2, Area
 from .Distance import M, Distance
-from .results.Result import Failure, Result, Success
+from .results.result import Failure, Result, Success
 
 def sqrt(area: Area) -> Result[Distance, Literal['negative']]:
     mm2 = area.get(MM2)
