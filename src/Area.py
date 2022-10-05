@@ -1,11 +1,13 @@
 from __future__ import annotations
-import enum
+from src.operations import Comparison
+from src.operations.Addition import Addition
+from src.operations.Unitbase import MetricBase, UnitBase
 
-class AreaMetric(enum.IntEnum):
-    M2 = 0
-    DM2 = -2
-    CM2 = -4
-    MM2 = -6
+class AreaMetric(MetricBase):
+    M2 = 1
+    DM2 = 0.01
+    CM2 = 0.0001
+    MM2 = 0.000001
 
 M2 = AreaMetric.M2
 DM2 = AreaMetric.DM2
@@ -13,12 +15,12 @@ CM2 = AreaMetric.CM2
 MM2 = AreaMetric.MM2
 
 
-class Area:
+class Area(Addition, UnitBase):
     def __init__(self, unit: float, metric: AreaMetric) -> None:
-        self.__square_meters = unit * (10.0 ** metric.value)
+       Addition.__init__(self, unit, metric)
 
     def get(self, metric: AreaMetric) -> float:
-        return self.__square_meters / (10.0 ** metric.value)
+        return super().get(metric)
 
     def __str__(self) -> str:
-        return f'{self.__square_meters:1} m2'
+        return f'{self._unit:1} m2'

@@ -18,3 +18,10 @@ class TestArea:
         area = Area(3.5, M2)
         print('something')
         assert str(area) == '3.5 m2'
+
+    def test_addition_between_areas(self) -> None:
+        area = Area(2, M2) + Area(50, DM2)
+        assert area.get(M2) == 2.5
+
+    def test_comparisons(self) -> None:
+        assert Area(2, M2) < Area(3, M2)

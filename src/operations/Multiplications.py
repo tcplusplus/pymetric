@@ -1,5 +1,5 @@
+from __future__ import annotations
 import copy
-import enum
 from typing import Generic, Type, TypeVar, overload, Union, cast
 from .Unitbase import UnitBase, MetricBase
 

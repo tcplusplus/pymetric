@@ -26,3 +26,6 @@ class TestAcceleration:
     def test_acceleration_times_time_is_speed(self) -> None:
         speed = Acceleration(4, MpS2) * Time(2, Sec)
         assert speed.get(MpS) == 8
+
+    def test_check_acceleration_comparisons(self) -> None:
+        assert Acceleration(4, MpS2) > Acceleration(3, MpS2)
