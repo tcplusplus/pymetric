@@ -2,6 +2,8 @@
 disable=
     missing-function-docstring,
     missing-module-docstring,
-    too-few-public-methods
+    too-few-public-methods,
+    cyclic-import,                  # TODO: needs to be removed
+    import-error                    # TODO: needs to be removed
 
 max-line-length=120
